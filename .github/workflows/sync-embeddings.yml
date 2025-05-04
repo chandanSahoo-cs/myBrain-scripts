@@ -27,14 +27,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m venv venv
-          . venv/bin/activate
+          source venv/bin/activate
           pip install -r requirements.txt
 
       - name: Run embedding script
         env:
           VAULT_PATH: vault
         run: |
-          . venv/bin/activate
+          source venv/bin/activate
           python scripts/create_embeddings.py
 
       - name: Check contents of embeddings folder
