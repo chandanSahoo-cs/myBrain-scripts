@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repo containing the action (this repo)
       - name: Checkout this repo
         uses: actions/checkout@v3
 
+      # Step 2: Checkout the private vault repo
       - name: Checkout private vault repo
         uses: actions/checkout@v3
         with:
@@ -19,17 +21,20 @@ jobs:
           token: ${{ secrets.VAULT_REPO_TOKEN }}
           path: vault
 
+      # Step 3: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
 
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
 
+      # Step 5: Run embedding script
       - name: Run embedding script
         env:
           VAULT_PATH: vault
@@ -37,13 +42,16 @@ jobs:
           source venv/bin/activate
           python scripts/create_embeddings.py
 
+      # Step 6: Push embeddings to the repo
       - name: Push embeddings to repo
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
+          # Add only the embeddings folder
           git add embeddings/
 
+          # Commit changes only if there are changes to commit
           if ! git diff --cached --quiet; then
             git commit -m "Update Chroma embeddings"
             git push origin main
