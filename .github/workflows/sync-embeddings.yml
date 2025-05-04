@@ -16,7 +16,7 @@ jobs:
       - name: Checkout private vault repo
         uses: actions/checkout@v3
         with:
-          repository: your-username/your-private-vault-repo
+          repository: chandanSahoo-cs/myBrain
           token: ${{ secrets.VAULT_REPO_TOKEN }}
           path: vault
 
