@@ -54,11 +54,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-
-          echo "🔁 Setting correct remote URL"
-          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/chandanSahoo-cs/myBrain-scripts.git
-
-          echo "📦 Adding embeddings folder"
           git add embeddings/
           git status
 
@@ -66,4 +61,5 @@ jobs:
           git commit -m "Update Chroma embeddings" || echo "⚠️ No changes to commit"
 
           echo "🚀 Pushing to repo"
-          git push origin main
+          git push https://x-access-token:${GH_PAT}@github.com/chandanSahoo-cs/myBrain-scripts.git
+
