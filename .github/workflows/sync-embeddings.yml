@@ -48,11 +48,18 @@ jobs:
             echo "✅ GH_PAT is available (masked)."
           fi
 
+      - name: Pull latest changes from repo
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git pull https://x-access-token:$GH_PAT@github.com/chandanSahoo-cs/myBrain-scripts.git
+
       - name: Push embeddings to repo
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add embeddings/
           git commit -m "Update Chroma embeddings" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/chandanSahoo-cs/myBrain-scripts.git
-
+          git push https://x-access-token:$GH_PAT@github.com/chandanSahoo-cs/myBrain-scripts.git
