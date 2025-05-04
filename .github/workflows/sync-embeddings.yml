@@ -37,11 +37,6 @@ jobs:
           source venv/bin/activate
           python scripts/create_embeddings.py
 
-      - name: Check contents of embeddings folder
-        run: |
-          echo "📁 Listing embeddings folder contents:"
-          ls -R embeddings || echo "❌ Embeddings folder not found"
-
       - name: Push embeddings to repo
         run: |
           git config --global user.name "GitHub Actions"
