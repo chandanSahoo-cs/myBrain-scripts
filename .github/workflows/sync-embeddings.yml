@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout this repo
+      - name: Checkout this repo (scripts)
         uses: actions/checkout@v3
 
       - name: Checkout private vault repo
@@ -43,6 +43,10 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
+
           git add embeddings/
           git commit -m "Update Chroma embeddings" || echo "No changes to commit"
-          git push https://x-access-token:${GH_PAT}@github.com/chandanSahoo-cs/myBrain-scripts.git
+
+          # Use PAT to push
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/chandanSahoo-cs/myBrain-scripts.git
+          git push origin HEAD:main
