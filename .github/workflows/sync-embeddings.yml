@@ -1,9 +1,8 @@
 name: Embed Obsidian Vault Notes
 
 on:
-  push:
-    branches:
-      - main
+  repository_dispatch:
+    types: [trigger-embedding]
 
 jobs:
   embed_notes:
