@@ -5,7 +5,7 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 
 # Configure your vault path
-VAULT_PATH = os.path.expanduser("~/Obsidian Vaults/Vault/myBrain")
+VAULT_PATH = os.environ.get("VAULT_PATH", "./vault")
 
 # Initialize Chroma DB
 client = chromadb.PersistentClient(path="../embeddings")
