@@ -37,6 +37,17 @@ jobs:
           . venv/bin/activate
           python scripts/create_embeddings.py
 
+      - name: Check if GH_PAT is available
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "❌ GH_PAT is not available!"
+            exit 1
+          else
+            echo "✅ GH_PAT is available (masked)."
+          fi
+
       - name: Push embeddings to repo
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -44,9 +55,15 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
+          echo "🔁 Setting correct remote URL"
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/chandanSahoo-cs/myBrain-scripts.git
 
+          echo "📦 Adding embeddings folder"
           git add embeddings/
-          git commit -m "Update Chroma embeddings" || echo "No changes to commit"
-          git push origin main
+          git status
 
+          echo "📝 Committing changes"
+          git commit -m "Update Chroma embeddings" || echo "⚠️ No changes to commit"
+
+          echo "🚀 Pushing to repo"
+          git push origin main
