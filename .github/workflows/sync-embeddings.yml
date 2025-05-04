@@ -1,0 +1,30 @@
+name: Sync Embeddings After Push
+
+on:
+  push:
+    branches:
+      - main # or any branch you want to trigger on
+
+jobs:
+  sync_embeddings:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.8" # or your required version
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run embeddings script
+        run: |
+          . venv/bin/activate
+          python scripts/create_embeddings.py
