@@ -35,4 +35,4 @@ query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else input("Enter your query
 
 # Run
 results = qa_chain.invoke(query)
-print("🤖 Answer:", results.get("result"))
+print("⟁ Answer:", results.get("result"))

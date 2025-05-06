@@ -103,10 +103,10 @@ def sync_and_embed():
 
     if all_chunks:
         db.add_documents(documents=all_chunks, ids=ids_to_add)
-        print(f"✅ Added/updated {len(all_chunks)} chunks.")
+        print(f"✓ Added/updated {len(all_chunks)} chunks.")
 
     save_metadata(new_meta)
-    print("🔁 Sync complete.")
+    print("↻ Sync complete.")
 
 
 if __name__ == "__main__":
