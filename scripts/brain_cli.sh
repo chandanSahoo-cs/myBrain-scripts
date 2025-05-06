@@ -79,6 +79,19 @@ log_input() {
     printf "┃ [ASK]    > "
 }
 
+# ──────────────── Keyboard Interrupt Handling ────────────────
+
+cleanup() {
+    echo ""
+    log_warn "Keyboard interrupt received. Cleaning up..."
+    deactivate 2>/dev/null
+    divider
+    footer
+    exit 1
+}
+
+trap cleanup SIGINT
+
 # ──────────────── REALM CLI START ────────────────
 
 clear

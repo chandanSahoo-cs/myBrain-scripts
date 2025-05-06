@@ -107,5 +107,13 @@ def sync_and_embed():
     print("┃ [SYNC]   complete.")
 
 
+def main():
+    try:
+        sync_and_embed()
+
+    except KeyboardInterrupt:
+        exit(0)
+
+
 if __name__ == "__main__":
-    sync_and_embed()
+    main()

@@ -30,9 +30,21 @@ llm = ChatGoogleGenerativeAI(
 # Setup QA chain
 qa_chain = VectorDBQA.from_chain_type(llm=llm, vectorstore=vectorstore)
 
-# Get query
-query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else input("Enter your query: ")
 
-# Run
-results = qa_chain.invoke(query)
-print("┃ [ANSWER]", results.get("result"))
+def main():
+    try:
+        # Get query
+        query = (
+            " ".join(sys.argv[1:]) if len(sys.argv) > 1 else input("Enter your query: ")
+        )
+
+        # Run
+        results = qa_chain.invoke(query)
+        print("┃ [ANSWER]", results.get("result"))
+
+    except KeyboardInterrupt:
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()
