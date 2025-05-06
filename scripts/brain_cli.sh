@@ -1,57 +1,125 @@
 #!/bin/bash
 
-VENV_PATH="/home/chandan/myBrain/venv" # Update this path if needed
+VENV_PATH="/home/chandan/myBrain/venv"
 ACTIVATE_SCRIPT="$VENV_PATH/bin/activate"
 
-# ASCII Banner
+# ──────────────── CLI Output Helpers ────────────────
+
+divider() {
+    echo ""
+    echo "────────────────────────────────────────────────────────────"
+    echo ""
+}
+
+print_header() {
+    echo ""
+    echo "╔══════════════════════════════════════════════════════════╗"
+    echo "║                  R E A L M   C L I                       ║"
+    echo "║        Interactive Interface for Mind Expansion          ║"
+    echo "╚══════════════════════════════════════════════════════════╝"
+    echo ""
+}
+
+section_activation() {
+    echo ""
+    echo "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
+    echo "┃  ≫ Construct Activation                                 ┃"
+    echo "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+    echo ""
+}
+
+section_sync() {
+    echo ""
+    echo "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
+    echo "┃  ⇄ Knowledge Synchronization                            ┃"
+    echo "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+    echo ""
+}
+
+section_console() {
+    echo ""
+    echo "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
+    echo "┃  ∷ Realm Console                                        ┃"
+    echo "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+    echo ""
+}
+
+footer() {
+    echo ""
+    echo "╔══════════════════════════════════════════════════════════╗"
+    echo "║               ⊘  R E A L M   C L O S E D                 ║"
+    echo "║    Re-enter when you're ready to explore deeper truth.   ║"
+    echo "╚══════════════════════════════════════════════════════════╝"
+    echo ""
+}
+
+# ──────────────── Logging Helpers ────────────────
+
+log_info() {
+    printf "┃ [INFO]   %s\n" "$1"
+}
+
+log_step() {
+    printf "┃ [STEP]   %s\n" "$1"
+}
+
+log_done() {
+    printf "┃ [DONE]   %s\n" "$1"
+}
+
+log_warn() {
+    printf "┃ [WARN]   %s\n" "$1"
+}
+
+log_exit() {
+    printf "┃ [EXIT]   %s\n" "$1"
+}
+
+log_input() {
+    printf "┃ [ASK]    > "
+}
+
+# ──────────────── REALM CLI START ────────────────
+
 clear
-cat <<"EOF"
-╔══════════════════════════════════════╗
-║         ENTERING THE REALM           ║
-║       A Gateway to Your Mind         ║
-╚══════════════════════════════════════╝
-EOF
+print_header
 
-# Start main loop
 while true; do
-    echo ""
-    echo "⟡ Initializing Mental Framework..."
+    section_activation
+    log_info "Initializing virtual environment..."
     source "$ACTIVATE_SCRIPT"
+    log_done "Environment activated."
+    divider
 
-    echo ""
-    echo "⟡ [⚙] Syncing with Thought Repository..."
+    section_sync
+    log_step "Running embedding generator..."
     python /home/chandan/myBrain/scripts/create_embeddings.py
-    echo ""
+    log_done "Embeddings successfully updated."
+    divider
 
-    echo "⟡ The Realm awaits your inquiry."
-    echo "⟡ Type 'exit' to close the gateway."
-    echo ""
+    section_console
+    log_info "The Construct is ready to receive input."
+    log_info "Type 'exit' or '⊘' to end the session."
+    divider
 
     while true; do
-        read -p "↳ You: " QUESTION
-        if [[ "$QUESTION" == "exit" ]]; then
-            echo ""
-            echo "⟡ Closing the Realm..."
+        log_input
+        read QUESTION
+        if [[ "$QUESTION" == "exit" || "$QUESTION" == "⊘" ]]; then
+            log_exit "Exiting the Realm console..."
             break
         fi
-        echo ""
-        echo "⟡ Sending your thoughts into the Ether..."
+        log_step "Sending your thoughts to the Construct..."
         python /home/chandan/myBrain/scripts/langchain_integration.py "$QUESTION"
-        echo ""
+        log_done "Response delivered."
+        divider
     done
 
+    log_info "Deactivating the Construct..."
     deactivate
-    echo ""
-    echo "⟡ Mental Portal Sealed."
+    log_done "Environment closed."
+    divider
     break
 done
 
-# Goodbye Message
-echo ""
-cat <<"EOF"
-╔═════════════════════════════════════════════╗
-║     THE REALM HAS CLOSED FOR NOW.           ║
-║     Return anytime to seek deeper insight.  ║
-╚═════════════════════════════════════════════╝
-
-EOF
+footer

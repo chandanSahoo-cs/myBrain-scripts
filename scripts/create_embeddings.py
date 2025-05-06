@@ -33,7 +33,7 @@ def save_metadata(metadata):
 
 
 def load_documents():
-    loader = DirectoryLoader(VAULT_PATH, glob="**/*.md", show_progress=True)
+    loader = DirectoryLoader(VAULT_PATH, glob="**/*.md", show_progress=False)
     return loader.load()
 
 
@@ -99,14 +99,12 @@ def sync_and_embed():
 
     if ids_to_remove:
         db.delete(ids=ids_to_remove)
-        print(f"🗑️ Removed {len(ids_to_remove)} outdated chunks.")
 
     if all_chunks:
         db.add_documents(documents=all_chunks, ids=ids_to_add)
-        print(f"✓ Added/updated {len(all_chunks)} chunks.")
 
     save_metadata(new_meta)
-    print("↻ Sync complete.")
+    print("┃ [SYNC]   complete.")
 
 
 if __name__ == "__main__":
