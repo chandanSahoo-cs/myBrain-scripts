@@ -1,4 +1,4 @@
-# REALM: Obsidian Vault + LLM Query System
+# REALM: Personal Notes + LLM Query System
 
 REALM is a personal knowledge management system that connects your Obsidian vault to a local vector store and lets you query your notes using a Large Language Model (LLM). It supports automatic syncing, embedding with Chroma DB, and querying with Gemini via LangChain.
 
