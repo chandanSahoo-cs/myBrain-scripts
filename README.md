@@ -1,12 +1,12 @@
 # REALM: Personal Notes + LLM Query System
 
-REALM is a personal knowledge management system that connects your Obsidian vault to a local vector store and lets you query your notes using a Large Language Model (LLM). It supports automatic syncing, embedding with Chroma DB, and querying with Gemini via LangChain.
+REALM is a personal knowledge management system that connects your Personal notes to a local vector store and lets you query your notes using a Large Language Model (LLM). It supports automatic syncing, embedding with Chroma DB, and querying with Gemini via LangChain.
 
 ---
 
 ## 🚀 Features
 
-* Syncs only updated or new Markdown files from your Obsidian vault
+* Syncs only updated or new Markdown files from your Personal notes
 * Stores embeddings locally using ChromaDB
 * Queries your notes using Gemini (Google Generative AI)
 * Command-line interface for seamless access
